@@ -12,6 +12,7 @@ module.exports = {
 		tech: './pages/tech/index.js',
 		about: './pages/about/index.js',
 		green: './pages/green/index.js',
+		application: './pages/application/index.js',
 	},
 	output: {
 		path: path.join(__dirname, '/build'),
