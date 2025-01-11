@@ -7,6 +7,7 @@ import Swiper from 'swiper'
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
 document.addEventListener('DOMContentLoaded', function () {
+	console.log("shoto")
 	const lenis = new Lenis()
 	lenis.on('scroll', ScrollTrigger.update)
 	gsap.ticker.add(time => {
