@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 import Lenis from 'lenis'
 import Swiper from 'swiper'
+import { setupHeaderAnimations } from '../../utils/header'
 
 const lenis = new Lenis()
 
@@ -15,6 +16,8 @@ gsap.ticker.add(time => {
 gsap.ticker.lagSmoothing(0)
 // register plugins
 gsap.registerPlugin(ScrollTrigger, SplitText)
+
+setupHeaderAnimations()
 
 document.addEventListener('DOMContentLoaded', function () {
 	let mm = gsap.matchMedia()
@@ -67,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		pointTl.to(pointCard01, {
 			visibility: 'hidden',
 		})
+		ScrollTrigger.update()
 	})
 
 	mm.add('(max-width: 766px)', () => {
@@ -139,6 +143,9 @@ document.addEventListener('DOMContentLoaded', function () {
 						duration: 0.5,
 						position: 'relative',
 						zIndex: 1,
+						onComplete: function () {
+							ScrollTrigger.update()
+						},
 					})
 				} else {
 					gsap.to(card, {
@@ -146,6 +153,9 @@ document.addEventListener('DOMContentLoaded', function () {
 						duration: 0.5,
 						position: 'absolute',
 						zIndex: -1,
+						onComplete: function () {
+							ScrollTrigger.update()
+						},
 					})
 				}
 			})

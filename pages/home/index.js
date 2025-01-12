@@ -3,17 +3,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 import Lenis from 'lenis'
 import Swiper from 'swiper'
+import { setupHeaderAnimations } from '../../utils/header'
 // register plugins
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
 document.addEventListener('DOMContentLoaded', function () {
-	console.log("shoto")
+	console.log('shoto')
 	const lenis = new Lenis()
 	lenis.on('scroll', ScrollTrigger.update)
 	gsap.ticker.add(time => {
 		lenis.raf(time * 1000)
 	})
 	gsap.ticker.lagSmoothing(0)
+
+	setupHeaderAnimations()
 	// MIND =================================
 	const mindTitleSplit = new SplitText('[data-animate="mind-title"]', {
 		type: 'words, chars',

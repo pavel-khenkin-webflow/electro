@@ -13,6 +13,9 @@ module.exports = {
 		about: './pages/about/index.js',
 		green: './pages/green/index.js',
 		application: './pages/application/index.js',
+		news: './pages/news/index.js',
+		jobs: './pages/jobs/index.js',
+		contact: './pages/contact/index.js',
 	},
 	output: {
 		path: path.join(__dirname, '/build'),

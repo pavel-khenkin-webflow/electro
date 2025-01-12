@@ -4,6 +4,7 @@ import { SplitText } from 'gsap/SplitText'
 import Lenis from 'lenis'
 import Swiper from 'swiper'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { setupHeaderAnimations } from '../../utils/header'
 // register plugins
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 	gsap.ticker.lagSmoothing(0)
 
+	setupHeaderAnimations()
 	// MIND =================================
 	const mindTitleSplit = new SplitText('[data-animate="about-title"]', {
 		type: 'words, chars',
