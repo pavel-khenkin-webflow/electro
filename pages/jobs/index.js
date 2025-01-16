@@ -223,4 +223,62 @@ document.addEventListener('DOMContentLoaded', function () {
 			prevEl: '#j-btn-prev',
 		},
 	})
+	//Дождь из кнопок
+
+	// Функция для анимации элементов внутри каждого `data-row`
+	function animateRowElements(rowSelector, delay = 0) {
+		const row = document.querySelector(`[data-row="${rowSelector}"]`);
+		if (!row) {
+			console.warn(`Row with selector [data-row="${rowSelector}"] not found`);
+			return;
+		}
+
+		const elements = row.querySelectorAll(".lines_line-card_inline-block");
+		if (elements.length === 0) {
+			console.warn(`No elements found in row ${rowSelector}`);
+			return;
+		}
+
+		const trigger = document.querySelector(".section_jobs-mission");
+		if (!trigger) {
+			console.warn("Trigger element .section_jobs-mission not found");
+			return;
+		}
+
+		gsap.fromTo(
+			elements,
+			{
+				opacity: 0,
+				y: -200,
+				scale: 0.5,
+			},
+			{
+				opacity: 1,
+				y: 0,
+				scale: 1,
+				duration: 0.3,
+				ease: "power2.out",
+				stagger: {
+					amount: 0.5,
+					from: "random",
+				},
+				scrollTrigger: {
+					trigger: ".section_jobs-mission", 
+					start: "30% center",
+					once: true,
+				},
+				delay,
+			}
+		);
+	}
+
+	// Анимация для каждого ряда
+	animateRowElements("one", 0); // Первый ряд, без задержки
+	animateRowElements("two", 0.5); // Второй ряд, задержка 1.5 секунды
+	animateRowElements("three", 1); // Третий ряд, задержка 3 секунды
+
+
+
+
+
 })
