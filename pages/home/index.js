@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
             start: '10% center',
             end: '75% center',
             scrub: true,
-            markers: true,
             onUpdate: self => {
                 const progress = self.progress;
                 const index = Math.floor(progress * whyCards.length);
