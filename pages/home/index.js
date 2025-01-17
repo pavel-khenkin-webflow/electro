@@ -100,16 +100,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ScrollTrigger для управления табами
     if (whyWrapper && whyCards.length > 0) {
+        const isMobile = window.innerWidth < 478;
+
         ScrollTrigger.create({
             trigger: whyWrapper,
-            start: '10% center',
-            end: '75% center',
+            start: isMobile ? 'top top' : '10% center',
+            end: isMobile ? '75% center' : '75% center',
             scrub: true,
             onUpdate: self => {
                 const progress = self.progress;
-                const index = Math.floor(progress * whyCards.length);
+                let index;
+                if (isMobile) {
+                    if (progress < 1 / 3) {
+                        index = 0;
+                    } else if (progress < 2 / 3) {
+                        index = 1;
+                    } else {
+                        index = 2;
+                    }
+                } else {
+                    index = Math.floor(progress * whyCards.length);
+                }
                 activateTabByIndex(index);
-            },
+            }
         });
     }
 
