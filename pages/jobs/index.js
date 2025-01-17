@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (otherTab.classList.contains('is--active')) {
 					gsap.to(otherContent, {
 						opacity: 0,
+						height: '0',
 						duration: 0.3,
 						onComplete: function () {
 							otherTab.classList.remove('is--active')
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (!isActive) {
 				gsap.to(cardContent, {
 					opacity: 1,
+					height: 'auto',
 					duration: 0.3,
 					onComplete: function () {
 						tab.classList.add('is--active')
@@ -276,9 +278,5 @@ document.addEventListener('DOMContentLoaded', function () {
 	animateRowElements("one", 0); // Первый ряд, без задержки
 	animateRowElements("two", 0.5); // Второй ряд, задержка 1.5 секунды
 	animateRowElements("three", 1); // Третий ряд, задержка 3 секунды
-
-
-
-
 
 })

@@ -2,6 +2,7 @@
   "name": "electro",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
     "start": "webpack-dev-server --mode development --hot",
     "build": "webpack --mode production --progress",
