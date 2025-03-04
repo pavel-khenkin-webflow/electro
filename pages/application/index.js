@@ -86,6 +86,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	slider1.on('slideChange', () => {
 		slider2.slideTo(slider1.activeIndex)
 	})
+	
+	// Temporal off slider1
+	slider1.allowSlideNext = false
+	slider1.allowSlidePrev = false
+	slider1.allowTouchMove = false // Отключает свайп
+
 
 	// STORIES
 	mm.add('(max-width: 767px)', () => {
