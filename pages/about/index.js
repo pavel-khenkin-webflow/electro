@@ -44,96 +44,154 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	// ABOUT POINTS
-	const slides = document.querySelectorAll('.about_slider-slide')
-	const totalSlides = slides.length
-
-	gsap.set(slides, {
-		opacity: 0,
-		position: 'absolute',
-		zIndex: -1,
-	})
-
-	gsap.set(slides[0], {
-		opacity: 1,
-		position: 'relative',
-		zIndex: 1,
-	})
-
-	ScrollTrigger.create({
-		trigger: '.section_about-slider',
-		start: 'top top',
-		end: 'bottom bottom',
-		scrub: true,
-		onUpdate: self => {
-			const progress = self.progress
-
-			// Первая карточка
-			if (progress >= 0 && progress < 0.33) {
-				gsap.to(slides[0], {
-					opacity: 1,
-					position: 'relative',
-					zIndex: 1,
-					duration: 0.5,
-				})
-				gsap.to(slides[1], {
-					opacity: 0,
-					position: 'absolute',
-					zIndex: -1,
-					duration: 0.5,
-				})
-				gsap.to(slides[2], {
-					opacity: 0,
-					position: 'absolute',
-					zIndex: -1,
-					duration: 0.5,
-				})
+	const aboutSlides = document.querySelectorAll('.about_slider-slide-content');
+	const aboutContainer = document.querySelector('.section_about-slider');
+	
+	let currentIndex = 0;
+	
+	function activateSlide(index) {
+		if (index < 0 || index >= aboutSlides.length) return;
+	
+		// Убираем класс со всех карточек
+		aboutSlides.forEach(slide => slide.classList.remove('is--active'));
+	
+		// Добавляем класс к нужному блоку
+		aboutSlides[index].classList.add('is--active');
+	}
+	
+	// Активируем первый слайд сразу
+	if (aboutSlides.length > 0) {
+		activateSlide(0);
+	}
+	
+	// Создаем ScrollTrigger
+	if (aboutContainer && aboutSlides.length > 0) {
+		const isMobile = window.innerWidth < 478;
+	
+		ScrollTrigger.create({
+			trigger: aboutContainer,
+			start: isMobile ? 'top top' : 'top top',
+			end: isMobile ? '85% center' : '85% center',
+			scrub: true,
+			onUpdate: self => {
+				const progress = self.progress;
+				let index;
+	
+				if (isMobile) {
+					if (progress < 1 / 3) {
+						index = 0;
+					} else if (progress < 2 / 3) {
+						index = 1;
+					} else {
+						index = 2;
+					}
+				} else {
+					index = Math.floor(progress * aboutSlides.length);
+				}
+	
+				if (index !== currentIndex) {
+					currentIndex = index;
+					activateSlide(index);
+				}
 			}
+		});
+	}
+	
+	
 
-			// Вторая карточка
-			if (progress >= 0.33 && progress < 0.66) {
-				gsap.to(slides[1], {
-					opacity: 1,
-					position: 'relative',
-					zIndex: 1,
-					duration: 0.5,
-				})
-				gsap.to(slides[0], {
-					opacity: 0,
-					position: 'absolute',
-					zIndex: -1,
-					duration: 0.5,
-				})
-				gsap.to(slides[2], {
-					opacity: 0,
-					position: 'absolute',
-					zIndex: -1,
-					duration: 0.5,
-				})
-			}
 
-			// Третья карточка
-			if (progress >= 0.66) {
-				gsap.to(slides[2], {
-					opacity: 1,
-					position: 'relative',
-					zIndex: 1,
-					duration: 0.5,
-				})
-				gsap.to(slides[0], {
-					opacity: 0,
-					position: 'absolute',
-					zIndex: -1,
-					duration: 0.5,
-				})
-				gsap.to(slides[1], {
-					opacity: 0,
-					position: 'absolute',
-					zIndex: -1,
-					duration: 0.5,
-				})
-			}
-		},
-	})
+
+
+	// const slides = document.querySelectorAll('.about_slider-slide')
+	// const totalSlides = slides.length
+
+	// gsap.set(slides, {
+	// 	opacity: 0,
+	// 	position: 'absolute',
+	// 	zIndex: -1,
+	// })
+
+	// gsap.set(slides[0], {
+	// 	opacity: 1,
+	// 	position: 'relative',
+	// 	zIndex: 1,
+	// })
+
+	// ScrollTrigger.create({
+	// 	trigger: '.section_about-slider',
+	// 	start: 'top top',
+	// 	end: 'bottom bottom',
+	// 	scrub: true,
+	// 	onUpdate: self => {
+	// 		const progress = self.progress
+
+	// 		// Первая карточка
+	// 		if (progress >= 0 && progress < 0.33) {
+	// 			gsap.to(slides[0], {
+	// 				opacity: 1,
+	// 				position: 'relative',
+	// 				zIndex: 1,
+	// 				duration: 0.5,
+	// 			})
+	// 			gsap.to(slides[1], {
+	// 				opacity: 0,
+	// 				position: 'absolute',
+	// 				zIndex: -1,
+	// 				duration: 0.5,
+	// 			})
+	// 			gsap.to(slides[2], {
+	// 				opacity: 0,
+	// 				position: 'absolute',
+	// 				zIndex: -1,
+	// 				duration: 0.5,
+	// 			})
+	// 		}
+
+	// 		// Вторая карточка
+	// 		if (progress >= 0.33 && progress < 0.66) {
+	// 			gsap.to(slides[1], {
+	// 				opacity: 1,
+	// 				position: 'relative',
+	// 				zIndex: 1,
+	// 				duration: 0.5,
+	// 			})
+	// 			gsap.to(slides[0], {
+	// 				opacity: 0,
+	// 				position: 'absolute',
+	// 				zIndex: -1,
+	// 				duration: 0.5,
+	// 			})
+	// 			gsap.to(slides[2], {
+	// 				opacity: 0,
+	// 				position: 'absolute',
+	// 				zIndex: -1,
+	// 				duration: 0.5,
+	// 			})
+	// 		}
+
+	// 		// Третья карточка
+	// 		if (progress >= 0.66) {
+	// 			gsap.to(slides[2], {
+	// 				opacity: 1,
+	// 				position: 'relative',
+	// 				zIndex: 1,
+	// 				duration: 0.5,
+	// 			})
+	// 			gsap.to(slides[0], {
+	// 				opacity: 0,
+	// 				position: 'absolute',
+	// 				zIndex: -1,
+	// 				duration: 0.5,
+	// 			})
+	// 			gsap.to(slides[1], {
+	// 				opacity: 0,
+	// 				position: 'absolute',
+	// 				zIndex: -1,
+	// 				duration: 0.5,
+	// 			})
+	// 		}
+	// 	},
+	// })
 
 	// RUN LINES
 	const DirectorsLines = document.querySelectorAll('.directos_line')
@@ -252,12 +310,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 	})
 	prtTl.to('[data-part-line="top"]', {
-		x: '20%',
+		x: '0%',
 	})
 	prtTl.to(
 		'[data-part-line="bot"]',
 		{
-			x: '-20%',
+			x: '0%',
 		},
 		'<'
 	)

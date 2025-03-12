@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const whyCardsImages = document.querySelectorAll('.why_content-image');
     const whyCardsDots = document.querySelectorAll('.why_nav-dot');
     const paginationText = document.querySelector('.wny_pagimation-active');
-    const whyWrapper = document.querySelector('.why_wrapper');
+    const whyContainer = document.querySelector('.for-section_why');
 
     let currentTabIndex = 0;
 
@@ -99,13 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ScrollTrigger для управления табами
-    if (whyWrapper && whyCards.length > 0) {
+    if (whyContainer && whyCards.length > 0) {
         const isMobile = window.innerWidth < 478;
 
         ScrollTrigger.create({
-            trigger: whyWrapper,
+            trigger: whyContainer,
             start: isMobile ? 'top top' : '10% center',
-            end: isMobile ? '75% center' : '75% center',
+            end: isMobile ? '85% center' : '85% center',
             scrub: true,
             onUpdate: self => {
                 const progress = self.progress;
@@ -126,24 +126,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // DISCOVER LINES RUN =================================
-    const discoverLinesTl = gsap.timeline();
-    discoverLinesTl.to('[data-animate="discover-line"] .lines_line', {
-        xPercent: -100,
-        repeat: -1,
-        duration: 25,
-        ease: 'linear',
-    });
-    discoverLinesTl.to(
-        '[data-animate="discover-line-reverse"] .lines_line',
-        {
-            xPercent: 100,
-            repeat: -1,
-            duration: 25,
-            ease: 'linear',
-        },
-        '<'
-    );
+    // // DISCOVER LINES RUN =================================
+    // const discoverLinesTl = gsap.timeline();
+    // discoverLinesTl.to('[data-animate="discover-line"] .lines_line', {
+    //     xPercent: -100,
+    //     repeat: -1,
+    //     duration: 25,
+    //     ease: 'linear',
+    // });
+    // discoverLinesTl.to(
+    //     '[data-animate="discover-line-reverse"] .lines_line',
+    //     {
+    //         xPercent: 100,
+    //         repeat: -1,
+    //         duration: 25,
+    //         ease: 'linear',
+    //     },
+    //     '<'
+    // );
 
     // Discover BALL ============================
     const discoverBallTl = gsap.timeline({
@@ -197,5 +197,92 @@ document.addEventListener('DOMContentLoaded', function () {
     const newsSlider = new Swiper('.news_slider', {
         slidesPerView: 'auto',
         spaceBetween: 24,
+        grabCursor: true,
     });
+
+    // // LINES CARS TEXT TOGGLE ======================================
+    // document.querySelectorAll('.lines_line-card').forEach(card => {
+    //     let resetTimeout; // Переменная для таймера
+    
+    //     card.addEventListener('click', () => {
+    //         const main = card.querySelector('[data-line-text="main"]');
+    //         const second = card.querySelector('[data-line-text="second"]');
+    
+    //         if (main && second) {
+    //             main.classList.toggle('is--hidden');
+    //             second.classList.toggle('is--hidden');
+    //         }
+    //     });
+    
+    //     card.addEventListener('mouseleave', () => {
+    //         // Запускаем таймер на 500ms перед сбросом классов
+    //         resetTimeout = setTimeout(() => {
+    //             const main = card.querySelector('[data-line-text="main"]');
+    //             const second = card.querySelector('[data-line-text="second"]');
+    
+    //             if (main && second) {
+    //                 main.classList.remove('is--hidden');
+    //                 second.classList.add('is--hidden');
+    //             }
+    //         }, 500);
+    //     });
+    
+    //     card.addEventListener('mouseenter', () => {
+    //         // Если курсор вернулся раньше 500ms, отменяем таймер
+    //         clearTimeout(resetTimeout);
+    //     });
+    // });
+
+    document.querySelectorAll('.lines_line-card').forEach(card => {
+        let resetTimeout;
+    
+        card.addEventListener('click', () => {
+            const main = card.querySelector('[data-line-text="main"]');
+            const second = card.querySelector('[data-line-text="second"]');
+    
+            if (main && second) {
+                main.classList.toggle('is--hidden');
+                second.classList.toggle('is--hidden');
+            }
+    
+            // Принудительно устанавливаем gap после клика
+            fixGap(card);
+        });
+    
+        card.addEventListener('mouseleave', () => {
+            resetTimeout = setTimeout(() => {
+                const main = card.querySelector('[data-line-text="main"]');
+                const second = card.querySelector('[data-line-text="second"]');
+    
+                if (main && second) {
+                    main.classList.remove('is--hidden');
+                    second.classList.add('is--hidden');
+                }
+    
+                // Возвращаем gap после сброса
+                fixGap(card);
+            }, 500);
+        });
+    
+        card.addEventListener('mouseenter', () => {
+            clearTimeout(resetTimeout);
+        });
+    });
+    
+    // Функция принудительной установки gap
+    function fixGap(activeCard) {
+        const wrapper = activeCard.closest('.lines_line-wrapper'); // Родительский wrapper
+        if (wrapper) {
+            wrapper.style.gap = '1.5em'; // Применяем gap к wrapper
+        }
+    }
+    
+    
+    
+    
+    
+
+
+
+
 });
