@@ -149,12 +149,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 	})
 	prtTl.to('[data-part-line="top"]', {
-		x: '20%',
+		x: '0%',
 	})
 	prtTl.to(
 		'[data-part-line="bot"]',
 		{
-			x: '-20%',
+			x: '0%',
 		},
 		'<'
 	)

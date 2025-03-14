@@ -142,4 +142,65 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		updateCardsVisibility()
 	})
+
+	//ahead-cards
+	// gsap.registerPlugin(ScrollTrigger);
+
+	// let cardsAhead = gsap.utils.toArray(".ahead-cards");
+	// let counter = document.querySelector("[data-card-active]"); // Счетчик карточек
+	// let totalCards = cardsAhead.length;
+	// let angle = 360 / totalCards;
+	// let depth = Math.round((300 / 2) / Math.tan(Math.PI / totalCards));
+	
+	// // Устанавливаем стартовые позиции карточек
+	// cardsAhead.forEach((card, index) => {
+	//   gsap.set(card, {
+	// 	rotationY: index * angle,
+	// 	transformOrigin: `50% 50% -${depth}px`,
+	// 	zIndex: 1,
+	// 	scale: 0.8,
+	// 	opacity: 0.5
+	//   });
+	// });
+	
+	// // Создаём анимацию скролла
+	// let scrollAnim = gsap.to(cardsAhead, {
+	//   rotationY: `-=${360}`,
+	//   transformOrigin: `50% 50% -${depth}px`,
+	//   scrollTrigger: {
+	// 	trigger: ".section_ahead",
+	// 	pin: ".ahead__main",
+	// 	scrub: 1,
+	// 	start: "top top",
+	// 	end: "+=300%",
+	// 	onUpdate: (self) => {
+	// 	  if (!self || typeof self.progress === "undefined") return; // Проверяем, есть ли progress
+	// 	  let activeIndex = Math.round((self.progress * totalCards) % totalCards);
+	
+	// 	  cardsAhead.forEach((card, index) => {
+	// 		let isActive = index === activeIndex;
+	
+	// 		gsap.to(card, {
+	// 		  zIndex: isActive ? 10 : 1,
+	// 		  scale: isActive ? 1 : 0.8,
+	// 		  opacity: isActive ? 1 : 0.5,
+	// 		  duration: 0.5
+	// 		});
+	// 	  });
+	
+	// 	  counter.textContent = `0${activeIndex + 1}`;
+	// 	}
+	//   }
+	// });
+	
+
+
+
+
+
+
+
+
+
+
 })

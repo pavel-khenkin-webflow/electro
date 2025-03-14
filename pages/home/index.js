@@ -161,10 +161,23 @@ document.addEventListener('DOMContentLoaded', function () {
     discoverBallTl.to(
         '.discover_content-ball',
         {
+            scaleX: 0.8,
+            scaleY: 0.8, 
+            xPercent: 59,
+            yPercent: -8,
             rotation: 0,
             duration: 0.5,
         },
         '<'
+    );
+    discoverBallTl.to(
+        '.discover__title',
+        {
+            x: '6em',
+            opacity: 1,
+            duration: 0.5,
+        },
+        '>+0.2'
     );
     discoverBallTl.to('.discover_nums-wrapper', {
         opacity: 1,
