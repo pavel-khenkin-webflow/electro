@@ -192,6 +192,112 @@ document.addEventListener('DOMContentLoaded', function () {
 	// 	}
 	//   }
 	// });
+
+	// gsap.registerPlugin(ScrollTrigger);
+
+	// const cardsAhead = document.querySelectorAll(".ahead-cards");
+	// const counter = document.querySelector("[data-card-active]"); // элемент счетчика
+	// const total = cardsAhead.length;
+
+	// // Обновляем общий счетчик
+	// document.querySelector("[data-counter-total]").textContent = total.toString();
+
+	// cardsAhead.forEach((card, index) => {
+	// gsap.to(card, {
+	// 	scrollTrigger: {
+	// 	trigger: card,
+	// 	start: "top center",
+	// 	end: "bottom center",
+	// 	toggleActions: "play reverse play reverse",
+	// 	onEnter: () => updateCounter(index + 1),
+	// 	onEnterBack: () => updateCounter(index + 1),
+	// 	},
+	// });
+	// });
+
+	// function updateCounter(value) {
+	// counter.textContent = value.toString().padStart(2, "0"); // Формат 01, 02 и т. д.
+	// }
+
+
+	// if (window.innerWidth >= 479) {
+	// 	gsap.utils.toArray(".ahead-cards").forEach((card, index, cards) => {
+	// 		gsap.to(card, {
+	// 		x: index * 8 + "em", // Смещение карточек в em
+	// 		ease: "power2.out",
+	// 		scrollTrigger: {
+	// 			trigger: ".section_ahead",
+	// 			start: "top 20%",
+	// 			end: "bottom bottom",
+	// 			scrub: true,
+	// 			onUpdate: (self) => {
+	// 			let progress = self.progress * (cards.length - 1); // Вычисляем прогресс
+	// 			let activeIndex = Math.round(progress); // Определяем текущую активную карточку
+		
+	// 			cards.forEach((c, i) => {
+	// 				gsap.to(c, {
+	// 				opacity: i < activeIndex ? 0.1 : i === activeIndex ? 1 : 0, // 0 для ещё не активных, 0.3 для уже прошедших
+	// 				backdropFilter: i === activeIndex ? "blur(1em)" : "blur(0em)", // Эффект блюра для активной карточки
+	// 				webkitBackdropFilter: i === activeIndex ? "blur(1em)" : "blur(0em)", // Для Safari
+	// 				duration: 0.3, // Плавный переход
+	// 				});
+	// 			});
+	// 			}
+	// 		}
+	// 		});
+	// 	});
+	// }
+
+	if (window.innerWidth >= 479) {
+		gsap.utils.toArray(".ahead-cards").forEach((card, index, cards) => {
+			gsap.to(card, {
+				x: index * 8 + "em", // Смещение карточек в em
+				ease: "power2.out",
+				scrollTrigger: {
+					trigger: ".section_ahead",
+					start: "top 20%",
+					end: "bottom bottom",
+					scrub: true,
+					onUpdate: (self) => {
+						let progress = self.progress * (cards.length - 1); // Вычисляем прогресс
+						let activeIndex = Math.round(progress); // Определяем текущую активную карточку
+	
+						cards.forEach((c, i) => {
+							gsap.to(c, {
+								opacity: i < activeIndex ? 0.1 : i === activeIndex ? 1 : 0, 
+								backdropFilter: i === activeIndex ? "blur(1em)" : "blur(0em)", 
+								webkitBackdropFilter: i === activeIndex ? "blur(1em)" : "blur(0em)", 
+								duration: 0.3,
+							});
+						});
+	
+						// Обновляем номер активной карточки в data-card-active
+						let cardIndicator = document.querySelector("[data-card-active]");
+						if (cardIndicator) {
+							cardIndicator.textContent = (activeIndex + 1).toString().padStart(2, "0");
+						}
+					}
+				}
+			});
+		});
+	}
+	
+	  
+	  
+	  
+	  
+
+	
+	
+	
+
+
+
+	
+	
+	
+	
+	
 	
 
 

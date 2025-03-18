@@ -246,49 +246,28 @@ document.addEventListener('DOMContentLoaded', function () {
     //     });
     // });
 
-    document.querySelectorAll('.lines_line-card').forEach(card => {
-        let resetTimeout;
     
-        card.addEventListener('click', () => {
-            const main = card.querySelector('[data-line-text="main"]');
-            const second = card.querySelector('[data-line-text="second"]');
-    
-            if (main && second) {
-                main.classList.toggle('is--hidden');
-                second.classList.toggle('is--hidden');
-            }
-    
-            // Принудительно устанавливаем gap после клика
-            fixGap(card);
-        });
-    
-        card.addEventListener('mouseleave', () => {
-            resetTimeout = setTimeout(() => {
-                const main = card.querySelector('[data-line-text="main"]');
-                const second = card.querySelector('[data-line-text="second"]');
-    
-                if (main && second) {
-                    main.classList.remove('is--hidden');
-                    second.classList.add('is--hidden');
-                }
-    
-                // Возвращаем gap после сброса
-                fixGap(card);
-            }, 500);
-        });
-    
-        card.addEventListener('mouseenter', () => {
-            clearTimeout(resetTimeout);
-        });
-    });
-    
-    // Функция принудительной установки gap
-    function fixGap(activeCard) {
-        const wrapper = activeCard.closest('.lines_line-wrapper'); // Родительский wrapper
-        if (wrapper) {
-            wrapper.style.gap = '1.5em'; // Применяем gap к wrapper
-        }
-    }
+    // document.querySelectorAll('.lines-card').forEach(card => {
+    //     let resetTimeout;
+
+    //     card.addEventListener('mouseenter', () => {
+    //         clearTimeout(resetTimeout);
+    //         fixGap(card);
+    //     });
+
+    //     card.addEventListener('mouseleave', () => {
+    //         resetTimeout = setTimeout(() => {
+    //             fixGap(card);
+    //         }, 500);
+    //     });
+    // });
+
+    // function fixGap(activeCard) {
+    //     const wrapper = activeCard.closest('.lines_line-wrapper');
+    //     if (wrapper) {
+    //         wrapper.style.gap = '1.5em';
+    //     }
+    // }
     
     
     
