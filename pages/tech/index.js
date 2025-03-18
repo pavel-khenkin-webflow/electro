@@ -111,49 +111,175 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   });
 
-  // // PEM TABS =========================== / width click
-  // const pemTabBtns = document.querySelectorAll('.pem_left-card')
-  // const pemTabCards = document.querySelectorAll('.pem_content-slide')
+    // // WHY TABS =================================
+    // const whyCards = document.querySelectorAll('.why_nav-card');
+    // const whyCardsImages = document.querySelectorAll('.why_content-image');
+    // const whyCardsDots = document.querySelectorAll('.why_nav-dot');
+    // const paginationText = document.querySelector('.wny_pagimation-active');
+    // const whyContainer = document.querySelector('.for-section_why');
 
-  // // Устанавливаем первый таб как активный по умолчанию
-  // pemTabBtns[0].classList.add('is--active')
-  // pemTabCards[0].style.opacity = 1
+    // let currentTabIndex = 0;
 
-  // pemTabBtns.forEach((tab, index) => {
-  // 	tab.addEventListener('click', () => {
-  // 		// Добавляем класс активности на выбранный таб
-  // 		pemTabBtns.forEach(btn => btn.classList.remove('is--active'))
-  // 		tab.classList.add('is--active')
+    // function activateTab(card) {
+    //     const cardTab = card.getAttribute('data-tab');
 
-  // 		// Переключаем карточки
-  // 		pemTabCards.forEach(card => {
-  // 			const cardValue = card.getAttribute('data-pem-card')
-  // 			const tabValue = tab.getAttribute('data-pem-tab')
+    //     whyCards.forEach(c => c.classList.remove('is--active'));
+    //     whyCardsImages.forEach(img => img.classList.remove('is--active'));
+    //     whyCardsDots.forEach(dot => dot.classList.remove('is--active'));
 
-  // 			if (cardValue === tabValue) {
-  // 				gsap.to(card, {
-  // 					opacity: 1,
-  // 					duration: 0.5,
-  // 					position: 'relative',
-  // 					zIndex: 1,
-  // 					onComplete: function () {
-  // 						ScrollTrigger.update()
-  // 					},
-  // 				})
-  // 			} else {
-  // 				gsap.to(card, {
-  // 					opacity: 0,
-  // 					duration: 0.5,
-  // 					position: 'absolute',
-  // 					zIndex: -1,
-  // 					onComplete: function () {
-  // 						ScrollTrigger.update()
-  // 					},
-  // 				})
-  // 			}
-  // 		})
-  // 	})
-  // })
+    //     card.classList.add('is--active');
+    //     const matchingImage = document.querySelector(
+    //         `[data-tab-image="${cardTab}"]`
+    //     );
+    //     const matchingDot = document.querySelector(`[data-dot="${cardTab}"]`);
+
+    //     if (matchingImage) {
+    //         matchingImage.classList.add('is--active');
+    //     }
+
+    //     if (matchingDot) {
+    //         matchingDot.classList.add('is--active');
+    //     }
+    // }
+
+    // function activateTabByIndex(index) {
+    //     if (index < 0 || index >= whyCards.length) return;
+
+    //     currentTabIndex = index;
+    //     activateTab(whyCards[currentTabIndex]);
+    //     updatePaginationText();
+    // }
+
+    // function updatePaginationText() {
+    //     if (paginationText) {
+    //         paginationText.textContent = `${String(currentTabIndex + 1).padStart(
+    //             2,
+    //             '0'
+    //         )}`;
+    //     }
+    // }
+
+    // // ScrollTrigger для управления табами
+    // if (whyContainer && whyCards.length > 0) {
+    //     const isMobile = window.innerWidth < 478;
+
+    //     ScrollTrigger.create({
+    //         trigger: whyContainer,
+    //         start: isMobile ? 'top top' : '10% center',
+    //         end: isMobile ? '85% center' : '85% center',
+    //         scrub: true,
+    //         onUpdate: self => {
+    //             const progress = self.progress;
+    //             let index;
+    //             if (isMobile) {
+    //                 if (progress < 1 / 3) {
+    //                     index = 0;
+    //                 } else if (progress < 2 / 3) {
+    //                     index = 1;
+    //                 } else {
+    //                     index = 2;
+    //                 }
+    //             } else {
+    //                 index = Math.floor(progress * whyCards.length);
+    //             }
+    //             activateTabByIndex(index);
+    //         }
+    //     });
+    // }
+
+    const whyCards = document.querySelectorAll('.why_nav-card');
+    const whyCardsImages = document.querySelectorAll('.why_content-image');
+    const whyCardsDots = document.querySelectorAll('.why_nav-dot');
+    const paginationText = document.querySelector('[data-active-pagination]');
+    const whyContainer = document.querySelector('.for-section_why');
+    const prevButton = document.querySelector('[data-nav="prev"]');
+    const nextButton = document.querySelector('[data-nav="next"]');
+    
+    let currentTabIndex = 0;
+    const isMobile = window.innerWidth < 478;
+    
+    function activateTab(card) {
+        const cardTab = card.getAttribute('data-tab');
+    
+        whyCards.forEach(c => c.classList.remove('is--active'));
+        whyCardsImages.forEach(img => img.classList.remove('is--active'));
+        whyCardsDots.forEach(dot => dot.classList.remove('is--active'));
+    
+        card.classList.add('is--active');
+        
+        const matchingImage = document.querySelector(`[data-tab-image="${cardTab}"]`);
+        const matchingDot = document.querySelector(`[data-dot="${cardTab}"]`);
+    
+        if (matchingImage) matchingImage.classList.add('is--active');
+        if (matchingDot) matchingDot.classList.add('is--active');
+    
+        updatePaginationText();
+        updateNavButtons();
+    }
+    
+    function activateTabByIndex(index) {
+        if (index < 0 || index >= whyCards.length) return;
+        currentTabIndex = index;
+        activateTab(whyCards[currentTabIndex]);
+    }
+    
+    function updatePaginationText() {
+        if (paginationText) {
+            paginationText.textContent = String(currentTabIndex + 1).padStart(2, '0');
+        }
+    }
+    
+    function updateNavButtons() {
+        if (prevButton) {
+            prevButton.style.opacity = currentTabIndex === 0 ? '0.5' : '1';
+        }
+        if (nextButton) {
+            nextButton.style.opacity = currentTabIndex === whyCards.length - 1 ? '0.2' : '1';
+        }
+    }
+    
+    // Устанавливаем начальное состояние кнопки "Назад"
+    updateNavButtons();
+    
+    if (isMobile) {
+        // Обработчики тапов по карточкам
+        whyCards.forEach((card, index) => {
+            card.addEventListener('touchend', () => activateTabByIndex(index));
+        });
+    
+        // Обработчики тапов по кнопкам навигации
+        if (prevButton) {
+            prevButton.addEventListener('touchend', () => activateTabByIndex(currentTabIndex - 1));
+        }
+        if (nextButton) {
+            nextButton.addEventListener('touchend', () => activateTabByIndex(currentTabIndex + 1));
+        }
+    } else {
+        // ScrollTrigger для управления табами на ПК
+        if (whyContainer && whyCards.length > 0) {
+            ScrollTrigger.create({
+                trigger: whyContainer,
+                start: '10% center',
+                end: '85% center',
+                scrub: true,
+                onUpdate: self => {
+                    const progress = self.progress;
+                    let index = Math.floor(progress * whyCards.length);
+                    activateTabByIndex(index);
+                }
+            });
+        }
+    }
+    
+    
+
+
+
+
+
+
+
+
 
   // PEM TABS =========================== / width scroll
 	const pemTrack = document.querySelector('.pem_track');
